@@ -32,8 +32,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configureImage(with urlString: String) {
-        guard let url = URL(string: urlString) else {
+    func configureImage(with urlString: String?) {
+        guard let url = URL(string: urlString!) else {
             print("Invalid URL")
             return
         }
@@ -70,8 +70,8 @@ class VideoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     
-    func loadImage(with urlString: String) {
-        guard let url = URL(string: urlString) else {
+    func loadImage(with urlString: String?) {
+        guard let url = URL(string: urlString!) else {
             print("Invalid URL")
             return
         }
@@ -87,7 +87,7 @@ class SecondVideoCollectionViewCell: UICollectionViewCell {
             videoCollectionView.dataSource = self
         }
     }
-    var videoData: [VideoItem] = [] {
+    var videoData: [VideoResponse] = [] {
         didSet {
             videoCollectionView.reloadData()
         }
@@ -112,11 +112,12 @@ extension SecondVideoCollectionViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SmallVideoCollectionViewCell", for: indexPath) as? VideoCollectionViewCell else {
             fatalError("Unexpected collection view")
         }
+        
         let item = videoData[indexPath.row]
-        cell.loadImage(with: item.thumnailImageURL)
-        cell.playTimeLabel.text = item.playTime
-        cell.titleLabel.text = item.title
-        cell.artistLabel.text = item.artist
+        cell.loadImage(with: item.thumbnailImageList.first?.url)
+        cell.playTimeLabel.text = item.playTm
+        cell.titleLabel.text = item.videoNm
+        cell.artistLabel.text = item.representationArtist.name
 
         return cell
     }

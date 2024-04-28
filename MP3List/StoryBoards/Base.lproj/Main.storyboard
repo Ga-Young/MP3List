@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Chart View Controller-->
+        <!--Browser View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ChartViewController" customModule="MP3List" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="BrowserViewController" customModule="MP3List" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -301,7 +301,7 @@
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" reuseIdentifier="FloChartCollectionViewCell" id="gNU-Ik-lx3" customClass="ChartCollectionViewCell" customModule="MP3List" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" reuseIdentifier="GlobalChartCollectionViewCell" id="gNU-Ik-lx3" customClass="ChartCollectionViewCell" customModule="MP3List" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" id="fXM-XL-tgw">
@@ -804,16 +804,24 @@
                                     <constraint firstItem="KOa-eS-U0g" firstAttribute="leading" secondItem="mlA-tC-4Wf" secondAttribute="leading" constant="15" id="rdC-Gj-uga"/>
                                 </constraints>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="6k6-hn-pTM">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="color" red="0.5189456549" green="0.59391901260000002" blue="0.9529411793" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nQf-FA-4HT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6k6-hn-pTM" firstAttribute="leading" secondItem="nQf-FA-4HT" secondAttribute="leading" id="1bn-gw-MjY"/>
                             <constraint firstItem="nQf-FA-4HT" firstAttribute="bottom" secondItem="mlA-tC-4Wf" secondAttribute="bottom" id="5wW-DO-lfD"/>
                             <constraint firstItem="c5G-Mk-rrt" firstAttribute="trailing" secondItem="nQf-FA-4HT" secondAttribute="trailing" id="C1K-2r-XIj"/>
                             <constraint firstItem="c5G-Mk-rrt" firstAttribute="leading" secondItem="nQf-FA-4HT" secondAttribute="leading" id="G6X-US-QcY"/>
                             <constraint firstItem="nQf-FA-4HT" firstAttribute="trailing" secondItem="mlA-tC-4Wf" secondAttribute="trailing" id="IeH-bF-eAw"/>
                             <constraint firstItem="c5G-Mk-rrt" firstAttribute="top" secondItem="nQf-FA-4HT" secondAttribute="top" id="PcS-Lp-XwR"/>
+                            <constraint firstItem="nQf-FA-4HT" firstAttribute="bottom" secondItem="6k6-hn-pTM" secondAttribute="bottom" id="W9R-ds-p2k"/>
+                            <constraint firstItem="nQf-FA-4HT" firstAttribute="trailing" secondItem="6k6-hn-pTM" secondAttribute="trailing" id="ZVD-i4-bQb"/>
                             <constraint firstItem="mlA-tC-4Wf" firstAttribute="top" secondItem="c5G-Mk-rrt" secondAttribute="bottom" id="idT-m2-EiT"/>
+                            <constraint firstItem="6k6-hn-pTM" firstAttribute="top" secondItem="nQf-FA-4HT" secondAttribute="top" id="saI-PF-yNj"/>
                             <constraint firstItem="mlA-tC-4Wf" firstAttribute="leading" secondItem="nQf-FA-4HT" secondAttribute="leading" id="w1b-eE-p9c"/>
                         </constraints>
                     </view>
@@ -831,7 +839,10 @@
                         <outlet property="genreThemeCollectionView" destination="gWc-Lo-kdk" id="SjZ-Yn-3oW"/>
                         <outlet property="genreThemeView" destination="KOa-eS-U0g" id="XWd-Xl-Fsb"/>
                         <outlet property="genreThemeViewHeightConstraint" destination="Pxl-dk-ly0" id="GLg-us-zka"/>
-                        <outlet property="globalSocialChartView" destination="MFT-ST-ArU" id="teX-Y1-og8"/>
+                        <outlet property="globalChartCollectionView" destination="fjU-Yd-cpB" id="KZJ-wO-YmT"/>
+                        <outlet property="globalChartPageControl" destination="hKx-Yt-fXH" id="08h-0e-fpJ"/>
+                        <outlet property="globalChartView" destination="MFT-ST-ArU" id="teX-Y1-og8"/>
+                        <outlet property="indicatorView" destination="6k6-hn-pTM" id="qIH-oK-q4d"/>
                         <outlet property="pageControl" destination="74a-5x-E8t" id="2FV-he-2OM"/>
                         <outlet property="videoButton" destination="qTE-MT-3YX" id="0Mc-Lb-m6O"/>
                         <outlet property="videoCollectionView" destination="E6U-sQ-33E" id="0yn-1m-HQt"/>
