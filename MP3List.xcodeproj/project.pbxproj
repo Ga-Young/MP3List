@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BB63F7F02BDC004F005E60A6 /* VideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB63F7EF2BDC004F005E60A6 /* VideoItem.swift */; };
 		BB63F7F82BDC22B9005E60A6 /* CollectionViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB63F7F72BDC22B9005E60A6 /* CollectionViewCells.swift */; };
-		BB6EE6952BDA967F00C4746E /* GenreThemeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6EE6942BDA967F00C4746E /* GenreThemeItem.swift */; };
 		BB6EE6982BDAC62B00C4746E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BB6EE6972BDAC62B00C4746E /* Kingfisher */; };
 		BB953BB82BDE3AD8007B8845 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB953BB72BDE3AD8007B8845 /* Response.swift */; };
 		BB953BBA2BDE3B77007B8845 /* BrowserDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB953BB92BDE3B77007B8845 /* BrowserDataResponse.swift */; };
@@ -26,21 +24,21 @@
 		BB953BD02BDE771A007B8845 /* VideoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB953BCF2BDE771A007B8845 /* VideoResponse.swift */; };
 		BB953BD22BDE78E8007B8845 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB953BD12BDE78E8007B8845 /* API.swift */; };
 		BB953BD42BDE8A97007B8845 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB953BD32BDE8A97007B8845 /* ChartViewModel.swift */; };
+		BB953BDA2BDED588007B8845 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB953BD92BDED588007B8845 /* DetailViewController.swift */; };
+		BB953BDC2BDEEF0D007B8845 /* LyricsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB953BDB2BDEEF0D007B8845 /* LyricsViewModel.swift */; };
+		BB953BDE2BDEEF8C007B8845 /* Lyrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB953BDD2BDEEF8C007B8845 /* Lyrics.swift */; };
 		BB9948602BD62AE100F02A6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB99485F2BD62AE100F02A6B /* AppDelegate.swift */; };
 		BB9948622BD62AE100F02A6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9948612BD62AE100F02A6B /* SceneDelegate.swift */; };
 		BB9948642BD62AE100F02A6B /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9948632BD62AE100F02A6B /* BrowserViewController.swift */; };
 		BB9948672BD62AE100F02A6B /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BB9948662BD62AE100F02A6B /* Base */; };
 		BB9948692BD62AE200F02A6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB9948682BD62AE200F02A6B /* Assets.xcassets */; };
 		BB99486C2BD62AE200F02A6B /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BB99486B2BD62AE200F02A6B /* Base */; };
-		BB9948742BD65ADB00F02A6B /* ChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9948732BD65ADB00F02A6B /* ChartItem.swift */; };
 		BB9948772BD65DAC00F02A6B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BB9948762BD65DAC00F02A6B /* Alamofire */; };
 		BB9948792BD65DAC00F02A6B /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = BB9948782BD65DAC00F02A6B /* AlamofireDynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BB63F7EF2BDC004F005E60A6 /* VideoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItem.swift; sourceTree = "<group>"; };
 		BB63F7F72BDC22B9005E60A6 /* CollectionViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCells.swift; sourceTree = "<group>"; };
-		BB6EE6942BDA967F00C4746E /* GenreThemeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreThemeItem.swift; sourceTree = "<group>"; };
 		BB953BB72BDE3AD8007B8845 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		BB953BB92BDE3B77007B8845 /* BrowserDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserDataResponse.swift; sourceTree = "<group>"; };
 		BB953BBB2BDE3BE6007B8845 /* ChartListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartListResponse.swift; sourceTree = "<group>"; };
@@ -56,6 +54,9 @@
 		BB953BCF2BDE771A007B8845 /* VideoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoResponse.swift; sourceTree = "<group>"; };
 		BB953BD12BDE78E8007B8845 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		BB953BD32BDE8A97007B8845 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
+		BB953BD92BDED588007B8845 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		BB953BDB2BDEEF0D007B8845 /* LyricsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsViewModel.swift; sourceTree = "<group>"; };
+		BB953BDD2BDEEF8C007B8845 /* Lyrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lyrics.swift; sourceTree = "<group>"; };
 		BB99485C2BD62AE100F02A6B /* MP3List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MP3List.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB99485F2BD62AE100F02A6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB9948612BD62AE100F02A6B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +65,6 @@
 		BB9948682BD62AE200F02A6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB99486B2BD62AE200F02A6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB99486D2BD62AE200F02A6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB9948732BD65ADB00F02A6B /* ChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,9 +84,6 @@
 		BB63F7F12BDC007C005E60A6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BB9948732BD65ADB00F02A6B /* ChartItem.swift */,
-				BB6EE6942BDA967F00C4746E /* GenreThemeItem.swift */,
-				BB63F7EF2BDC004F005E60A6 /* VideoItem.swift */,
 				BB953BB72BDE3AD8007B8845 /* Response.swift */,
 				BB953BB92BDE3B77007B8845 /* BrowserDataResponse.swift */,
 				BB953BBB2BDE3BE6007B8845 /* ChartListResponse.swift */,
@@ -101,6 +98,7 @@
 				BB953BCD2BDE76F3007B8845 /* VideoPlayListResponse.swift */,
 				BB953BCF2BDE771A007B8845 /* VideoResponse.swift */,
 				BB953BD12BDE78E8007B8845 /* API.swift */,
+				BB953BDD2BDEEF8C007B8845 /* Lyrics.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -109,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				BB9948632BD62AE100F02A6B /* BrowserViewController.swift */,
+				BB953BD92BDED588007B8845 /* DetailViewController.swift */,
 				BB63F7F72BDC22B9005E60A6 /* CollectionViewCells.swift */,
 			);
 			path = ViewControllers;
@@ -127,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				BB953BD32BDE8A97007B8845 /* ChartViewModel.swift */,
+				BB953BDB2BDEEF0D007B8845 /* LyricsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -247,22 +247,22 @@
 				BB953BB82BDE3AD8007B8845 /* Response.swift in Sources */,
 				BB63F7F82BDC22B9005E60A6 /* CollectionViewCells.swift in Sources */,
 				BB9948642BD62AE100F02A6B /* BrowserViewController.swift in Sources */,
-				BB63F7F02BDC004F005E60A6 /* VideoItem.swift in Sources */,
 				BB953BC42BDE3FEA007B8845 /* ArtistResponse.swift in Sources */,
 				BB953BBA2BDE3B77007B8845 /* BrowserDataResponse.swift in Sources */,
+				BB953BDA2BDED588007B8845 /* DetailViewController.swift in Sources */,
 				BB9948602BD62AE100F02A6B /* AppDelegate.swift in Sources */,
 				BB953BC02BDE3D75007B8845 /* AlbumResponse.swift in Sources */,
 				BB953BCE2BDE76F3007B8845 /* VideoPlayListResponse.swift in Sources */,
-				BB9948742BD65ADB00F02A6B /* ChartItem.swift in Sources */,
 				BB953BCA2BDE6D1A007B8845 /* ProgramCategoryListResponse.swift in Sources */,
 				BB953BD42BDE8A97007B8845 /* ChartViewModel.swift in Sources */,
 				BB953BD22BDE78E8007B8845 /* API.swift in Sources */,
 				BB953BBE2BDE3C39007B8845 /* TrackListResponse.swift in Sources */,
 				BB953BC62BDE40A1007B8845 /* SectionListResponse.swift in Sources */,
+				BB953BDC2BDEEF0D007B8845 /* LyricsViewModel.swift in Sources */,
 				BB953BCC2BDE75F3007B8845 /* ProgramCategoryResponse.swift in Sources */,
 				BB953BC82BDE40E6007B8845 /* ShortcutResponse.swift in Sources */,
+				BB953BDE2BDEEF8C007B8845 /* Lyrics.swift in Sources */,
 				BB9948622BD62AE100F02A6B /* SceneDelegate.swift in Sources */,
-				BB6EE6952BDA967F00C4746E /* GenreThemeItem.swift in Sources */,
 				BB953BBC2BDE3BE6007B8845 /* ChartListResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,8 +421,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -449,8 +449,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

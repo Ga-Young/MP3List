@@ -10,18 +10,14 @@ import UIKit
 import Kingfisher
 
 class ChartCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var albumImageView: UIImageView!
+    @IBOutlet weak var albumImageView: UIImageView! {
+        didSet {
+            albumImageView.layer.cornerRadius = 8
+        }
+    }
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
-    
-//    override var isSelected: Bool {
-//        didSet {
-//            titleLabel?.textColor = isSelected ? .black : UIColor.black.withAlphaComponent(0.7)
-//            titleLabel?.font = isSelected ? .body2Bold : .body2Medium
-//            selectionView?.isHidden = !isSelected
-//        }
-//    }
 }
 
 class ImageCollectionViewCell: UICollectionViewCell {
@@ -42,8 +38,11 @@ class ImageCollectionViewCell: UICollectionViewCell {
             switch result {
             case .success(let value):
                 let image = value.image
-                let insets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: image.size.width - 2)
-                let resizableImage = image.resizableImage(withCapInsets: insets, resizingMode: .stretch)
+                let screenHeight = UIScreen.main.bounds.height
+                let scaledFactor = ceil(Double(image.size.height) / Double(80))
+                let resizedImage = image.resize(targetSize: .init(width: image.size.width/scaledFactor, height: image.size.height/scaledFactor))
+                let insets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: resizedImage!.size.width - 2)
+                let resizableImage = resizedImage!.resizableImage(withCapInsets: insets, resizingMode: .stretch)
                 
                 DispatchQueue.main.async {
                     self?.titleImageView.image = resizableImage
@@ -126,5 +125,21 @@ extension SecondVideoCollectionViewCell: UICollectionViewDataSource {
 extension SecondVideoCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.size.width * 0.7, height: collectionView.bounds.size.height)
+    }
+}
+
+extension UIImage {
+    func resize(targetSize: CGSize, opaque: Bool = false) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(targetSize, opaque, 0)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        context.interpolationQuality = .high
+
+        let newRect = CGRect(x: 0, y: 0, width: targetSize.width, height: targetSize.height)
+        draw(in: newRect)
+
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+ 
+        UIGraphicsEndImageContext()
+        return newImage
     }
 }

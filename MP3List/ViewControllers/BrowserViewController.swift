@@ -8,6 +8,12 @@
 import UIKit
 import Kingfisher
 
+extension BrowserViewController {
+    struct SegueIdentifier {
+        static let PresentDetail = "PresentDetail"
+    }
+}
+
 class BrowserViewController: UIViewController {
     @IBOutlet weak var chartButton: UIButton! {
         didSet {
@@ -64,6 +70,9 @@ class BrowserViewController: UIViewController {
             pageControl.pageIndicatorTintColor = .lightGray
         }
     }
+    @IBOutlet weak var floChartLable: UILabel!
+    @IBOutlet weak var floChartUpdateLable: UILabel!
+    @IBOutlet weak var floChartDescriptionLable: UILabel!
     
     @IBOutlet weak var globalChartView: UIView! {
         didSet {
@@ -86,6 +95,9 @@ class BrowserViewController: UIViewController {
             globalChartPageControl.pageIndicatorTintColor = .lightGray
         }
     }
+    @IBOutlet weak var globalChartLable: UILabel!
+    @IBOutlet weak var globalChartUpdateLable: UILabel!
+    @IBOutlet weak var globalChartDescriptionLable: UILabel!
     
     @IBOutlet weak var genreThemeView: UIView!
     @IBOutlet weak var genreThemeViewHeightConstraint: NSLayoutConstraint!
@@ -125,11 +137,22 @@ class BrowserViewController: UIViewController {
         
         bindViewModel()
         viewModel.loadChartData()
-        
-        chartButton.isSelected = true
-        genreThemeButton.isSelected = false
-        audioButton.isSelected = false
-        videoButton.isSelected = false
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case SegueIdentifier.PresentDetail:
+            if let viewController = segue.destination as? DetailViewController, let data = sender as? TrackListResponse {
+                viewController.data = data
+                viewController.dismissHandler = {
+               
+                    self.updateUI()
+                }
+            }
+            
+        default:
+            break
+        }
     }
     
     @IBAction func touchUpInside(_ sender: Any) {
@@ -177,9 +200,17 @@ class BrowserViewController: UIViewController {
         indicatorView.isHidden = true
         indicatorView.stopAnimating()
         
-        pageControl.numberOfPages = viewModel.chartList[0].trackList.count / 5
+        pageControl.numberOfPages = viewModel.numberOfTracksInChart(chartIndex: 0) / 5
+        globalChartPageControl.numberOfPages = viewModel.numberOfTracksInChart(chartIndex: 1) / 5
         
-        globalChartPageControl.numberOfPages = viewModel.chartList[0].trackList.count / 5
+        updateButtonSelection(selected: chartButton)
+        
+        floChartLable.text = viewModel.chartName(at: 0)
+        floChartUpdateLable.text = viewModel.chartUpdateDate(at: 0)
+        floChartDescriptionLable.text = viewModel.chartDescription(at: 0)
+        globalChartLable.text = viewModel.chartName(at: 1)
+        globalChartUpdateLable.text = viewModel.chartUpdateDate(at: 1)
+        globalChartDescriptionLable.text = viewModel.chartDescription(at: 1)
         
         floChartCollectionView.reloadData()
         globalChartCollectionView.reloadData()
@@ -188,17 +219,18 @@ class BrowserViewController: UIViewController {
         videoCollectionView.reloadData()
         
         var genreThemeViewheight = 0
-        for section in viewModel.sectionList {
+        for section in viewModel.getSectionList() {
             genreThemeViewheight += Int(ceil(Double(section.shortcutList.count) / 2.0))
         }
-        genreThemeViewHeightConstraint.constant = CGFloat(90 * genreThemeViewheight + 50 * viewModel.sectionList.count)
-        audioViewHeightConstraint.constant = CGFloat(90 * ceil(Double(viewModel.programCategory.count) / 2.0) + 50)
+        genreThemeViewHeightConstraint.constant = CGFloat(90 * genreThemeViewheight + 50 * viewModel.numberOfSection() + 15 * (viewModel.numberOfSection() - 1))
+        
+        audioViewHeightConstraint.constant = CGFloat(90 * ceil(Double(viewModel.numberOfProgramsInCategory()) / 2.0) + 50)
         view.layoutIfNeeded()
     }
     
     private func showAlertWithError(_ message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
         present(alert, animated: true)
     }
 
@@ -249,7 +281,7 @@ extension BrowserViewController: UIScrollViewDelegate {
 extension BrowserViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
        if collectionView === genreThemeCollectionView {
-           return viewModel.sectionList.count
+           return viewModel.numberOfSection()
        } else if collectionView === videoCollectionView {
            return 2
        } else {
@@ -258,14 +290,14 @@ extension BrowserViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView === floChartCollectionView, viewModel.chartList.indices.contains(0) {
-            return viewModel.chartList[0].trackList.count
-        } else if collectionView === globalChartCollectionView, viewModel.chartList.indices.contains(1) {
-            return viewModel.chartList[1].trackList.count
-        } else if collectionView === genreThemeCollectionView, viewModel.sectionList.indices.contains(0) {
-            return viewModel.sectionList[section].shortcutList.count
-        } else if collectionView === audioCollectionView, viewModel.programCategory.indices.contains(0) {
-            return viewModel.programCategory.count
+        if collectionView === floChartCollectionView, viewModel.hasFirstChart(at: 0) {
+            return viewModel.numberOfTracksInChart(chartIndex: 0)
+        } else if collectionView === globalChartCollectionView, viewModel.hasFirstChart(at: 1) {
+            return viewModel.numberOfTracksInChart(chartIndex: 1)
+        } else if collectionView === genreThemeCollectionView, viewModel.hasFirstSection() {
+            return viewModel.numberOfShortcutList(at: section)
+        } else if collectionView === audioCollectionView, viewModel.hasFirstProgramCategory() {
+            return viewModel.numberOfProgramsInCategory()
         } else if collectionView === videoCollectionView {
             return 1
         } else {
@@ -278,12 +310,12 @@ extension BrowserViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FloChartCollectionViewCell", for: indexPath) as? ChartCollectionViewCell else {
                 fatalError("Unable to dequeue ChartCollectionViewCell")
             }
-            if indexPath.row < viewModel.chartList[0].trackList.count {
-                let item = viewModel.chartList[0].trackList[indexPath.row]
-                cell.titleLabel.text = item.name
+            if indexPath.row < viewModel.numberOfTracksInChart(chartIndex: 0) {
+                let item = viewModel.trackForItem(at: indexPath, chartType: .flo)
+                cell.titleLabel.text = item?.name
                 cell.rankLabel.text = "\(indexPath.row + 1)"
-                cell.artistLabel.text = item.representationArtist.name
-                loadImage(with: item.album.imgList.first?.url, imageView: cell.albumImageView)
+                cell.artistLabel.text = item?.representationArtist.name
+                loadImage(with: item?.album.imgList.first?.url, imageView: cell.albumImageView)
             }
         
             return cell
@@ -292,12 +324,12 @@ extension BrowserViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GlobalChartCollectionViewCell", for: indexPath) as? ChartCollectionViewCell else {
                 fatalError("Unable to dequeue ChartCollectionViewCell")
             }
-            if indexPath.row < viewModel.chartList[1].trackList.count {
-                let item = viewModel.chartList[1].trackList[indexPath.row]
-                cell.titleLabel.text = item.name
+            if indexPath.row < viewModel.numberOfTracksInChart(chartIndex: 1) {
+                let item = viewModel.trackForItem(at: indexPath, chartType: .global)
+                cell.titleLabel.text = item?.name
                 cell.rankLabel.text = "\(indexPath.row + 1)"
-                cell.artistLabel.text = item.representationArtist.name
-                loadImage(with: item.album.imgList.first?.url, imageView: cell.albumImageView)
+                cell.artistLabel.text = item?.representationArtist.name
+                loadImage(with: item?.album.imgList.first?.url, imageView: cell.albumImageView)
             }
         
             return cell
@@ -306,10 +338,10 @@ extension BrowserViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GenreThemeCollectionViewCell", for: indexPath) as? ImageCollectionViewCell else {
                 fatalError("Unable to dequeue ImageCollectionViewCell")
             }
-            if indexPath.row < viewModel.sectionList[indexPath.section].shortcutList.count {
-                let item = viewModel.sectionList[indexPath.section].shortcutList[indexPath.row]
-                cell.titleLabel.text = item.name
-                cell.configureImage(with: item.imgList.first?.url)
+            if indexPath.row < viewModel.numberOfShortcutList(at: indexPath.section) {
+                let item = viewModel.itemInSection(at: indexPath)
+                cell.titleLabel.text = item?.name
+                cell.configureImage(with: item?.imgList.first?.url)
             }
             
             return cell
@@ -318,10 +350,10 @@ extension BrowserViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AudioCollectionViewCell", for: indexPath) as? ImageCollectionViewCell else {
                 fatalError("Unable to dequeue ImageCollectionViewCell")
             }
-            if indexPath.row < viewModel.programCategory.count {
-                let item = viewModel.programCategory[indexPath.row]
-                cell.titleLabel.text = item.displayTitle
-                cell.configureImage(with: item.imgUrl)
+            if indexPath.row < viewModel.numberOfProgramsInCategory() {
+                let item = viewModel.programCategoryAt(index: indexPath.row)
+                cell.titleLabel.text = item?.displayTitle
+                cell.configureImage(with: item?.imgUrl)
             }
 
             return cell
@@ -331,12 +363,12 @@ extension BrowserViewController: UICollectionViewDataSource {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BigVideoCollectionViewCell", for: indexPath) as? VideoCollectionViewCell else {
                     fatalError("Unable to dequeue VideoCollectionViewCell")
                 }
-                if indexPath.row < viewModel.videoList.count {
-                    let item = viewModel.videoList[indexPath.row]
-                    cell.loadImage(with: item.thumbnailImageList.first?.url)
-                    cell.playTimeLabel.text = item.playTm
-                    cell.titleLabel.text = item.videoNm
-                    cell.artistLabel.text = item.representationArtist.name
+                if indexPath.row < viewModel.numberOfVideoList() {
+                    let item = viewModel.videoAt(index: indexPath.row)
+                    cell.loadImage(with: item?.thumbnailImageList.first?.url)
+                    cell.playTimeLabel.text = item?.playTm
+                    cell.titleLabel.text = item?.videoNm
+                    cell.artistLabel.text = item?.representationArtist.name
                 }
      
                 return cell
@@ -345,9 +377,8 @@ extension BrowserViewController: UICollectionViewDataSource {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SecondVideoCollectionViewCell", for: indexPath) as? SecondVideoCollectionViewCell else {
                        fatalError("Unable to dequeue SecondVideoCollectionViewCell")
                 }
-                if viewModel.videoList.indices.contains(1) {
-                    cell.videoData = Array(viewModel.videoList.dropFirst())
-                }
+           
+                cell.videoData = viewModel.videoListDropFirst()
                 
                 return cell
             }
@@ -362,8 +393,8 @@ extension BrowserViewController: UICollectionViewDataSource {
             if collectionView === genreThemeCollectionView {
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "GenreThemeHeader", for: indexPath) as! CollectionViewHeaderView
                 
-                if viewModel.sectionList.indices.contains(0) {
-                    header.titleLabel.text = viewModel.sectionList[indexPath.section].name
+                if viewModel.hasFirstSection() {
+                    header.titleLabel.text = viewModel.nameOfSection(at: indexPath.section)
                 }
                 
                 return header
@@ -378,6 +409,13 @@ extension BrowserViewController: UICollectionViewDataSource {
         }
         
         fatalError("Unexpected kind or collectionView")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let chartType: ChartType = collectionView === floChartCollectionView ? .flo : .global
+        let item = viewModel.trackForItem(at: indexPath, chartType: chartType)
+        
+        performSegue(withIdentifier: SegueIdentifier.PresentDetail, sender: item)
     }
 }
 
