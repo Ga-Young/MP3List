@@ -412,10 +412,12 @@ extension BrowserViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let chartType: ChartType = collectionView === floChartCollectionView ? .flo : .global
-        let item = viewModel.trackForItem(at: indexPath, chartType: chartType)
-        
-        performSegue(withIdentifier: SegueIdentifier.PresentDetail, sender: item)
+        if collectionView === floChartCollectionView || collectionView === globalChartCollectionView {
+            let chartType: ChartType = collectionView === floChartCollectionView ? .flo : .global
+            let item = viewModel.trackForItem(at: indexPath, chartType: chartType)
+            
+            performSegue(withIdentifier: SegueIdentifier.PresentDetail, sender: item)
+        }
     }
 }
 
