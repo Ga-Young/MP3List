@@ -143,6 +143,7 @@ class BrowserViewController: UIViewController {
         switch segue.identifier {
         case SegueIdentifier.PresentDetail:
             if let viewController = segue.destination as? DetailViewController, let data = sender as? TrackListResponse {
+                viewController.configure(with: String(data.id))
                 viewController.data = data
                 viewController.dismissHandler = {
                

@@ -9,10 +9,11 @@ import Foundation
 import Alamofire
 
 struct API {
-    private static let URL_CHART_DATA = "https://raw.githubusercontent.com/dreamus-ios/challenge/main/browser"
+    private static let baseURL = "https://raw.githubusercontent.com/dreamus-ios/challenge/main/"
 
     static func browserData(completion: @escaping(BrowserDataResponse)->Void, failure: @escaping (Error?) -> Void) {
-        AF.request(URL_CHART_DATA)
+        let url = "\(baseURL)browser"
+        AF.request(url)
             .responseDecodable(of: Response<BrowserDataResponse>.self) { response in
                 switch response.result {
                 case .success(let responseData):
@@ -25,5 +26,22 @@ struct API {
                     }
                 }
             }
+    }
+    
+    static func trackData(trackId: String, completion: @escaping (TrackResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        let url = "\(baseURL)track/\(trackId)"
+        AF.request(url)
+            .responseDecodable(of: Response<TrackResponse>.self) { response in
+                switch response.result {
+                case .success(let responseData):
+                    DispatchQueue.main.async {
+                        completion(responseData.data)
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        failure(error)
+                    }
+                }
+        }
     }
 }
